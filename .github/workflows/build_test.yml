@@ -91,15 +91,12 @@ jobs:
         REMOTE_HOST: ${{ secrets.HOST_DNS }}
         REMOTE_USER: ${{ secrets.USERNAME }}
         TARGET: ${{ secrets.TARGET_DIR }}
-        
-   
-#     - name: runserver
-#       script: |
-#         cd /home/ubuntu/django-todo-app
-#         git pull
-#         source venv/bin/activate
-#         pip install -r requirements.txt
-#         sudo python3 manage.py runserver
+        script: |
+          cd /home/ubuntu/django-todo-app
+          git pull
+          source venv/bin/activate
+          pip install -r requirements.txt
+          sudo python3 manage.py runserver
         
      
     
