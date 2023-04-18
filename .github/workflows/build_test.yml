@@ -71,27 +71,42 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        EC2_INSTANCE_IP: ${{secrets.EC2_HOST}}
+        remote-host: ${{secrets.HOST_DNS}}
         aws-region: ${{secrets.AWS_REGION}}
-        
-    - name: Configure SSH access
-      uses: webfactory/ssh-agent@v0.5.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
+    
     - name: Deploy Django to AWS EC2
-      uses: appleboy/ssh-action@master
-      with: 
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd /home/ravi/django-todo-app
-          source venv/bin/activate
-          git pull 
-          pip install -r requirements.txt
-          python manage.py migrate
-          sudo systemctl restart nginx
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.HOST_DNS }}
+        REMOTE_USER: ${{ secrets.USERNAME }}
+        TARGET: ${{ secrets.TARGET_DIR }}
+    
+    
+    
+    
+    
+    
+    
+    
+#     - name: Configure SSH access
+#       uses: webfactory/ssh-agent@v0.5.0
+#       with:
+#         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        
+#     - name: Deploy Django to AWS EC2
+#       uses: appleboy/ssh-action@master
+#       with: 
+#         host: ${{ secrets.EC2_HOST }}
+#         username: ${{ secrets.EC2_USER }}
+#         key: ${{ secrets.SSH_PRIVATE_KEY }}
+#         script: |
+#           cd /home/ravi/django-todo-app
+#           source venv/bin/activate
+#           git pull 
+#           pip install -r requirements.txt
+#           python manage.py migrate
+#           sudo systemctl restart nginx
 
 
 
