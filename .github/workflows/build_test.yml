@@ -76,7 +76,7 @@ jobs:
     
     - name: Deploy Django to AWS EC2
       uses: easingthemes/ssh-deploy@main
-      env:
+      with:
         SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         REMOTE_HOST: ${{ secrets.HOST_DNS }}
         REMOTE_USER: ${{ secrets.USERNAME }}
