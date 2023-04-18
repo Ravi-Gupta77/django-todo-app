@@ -51,7 +51,7 @@ jobs:
         
     - name: Create and start virtual environment
       run: |
-        sudo virtualenv venv
+        python3 -m venv venv
         source venv/bin/activate
     
     - name: Install Dependencies
